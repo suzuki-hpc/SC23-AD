@@ -2,7 +2,7 @@
 
 ## Setting-up
 
-In this CA, all tables and figures similar to the ones in the articles are created by three python scripts: `fig_history.py`, `fig_manual.py`, and  `tab_result.py`. These scripts depend on external libraries, and thus those must be installed first. Since, we have compiled all the necessary library information in `requirements.txt`, you can install them with the following command.
+In this CA, all tables and figures similar to the ones in the articles are created by three python scripts: `table.py`, `hist.py`, and  `sub.py`. These scripts depend on external libraries, and thus those must be installed first. Since, we have compiled all the necessary library information in `requirements.txt`, you can install them with the following command.
 
 ```shell
 pip install -r requirements.txt
@@ -11,11 +11,11 @@ pip install -r requirements.txt
 ## Drawing the tables
 
 ```shell
-cd (path to this directory)
-python tab_result.py
+cd <path to the CA>/Work/Artwork
+python table.py <seq or multi>
 ```
 
-The output will be as follows. In this example, we assume that only the three tests for `atmosmdd`, `wang3`, and `wang4` were performed.
+The `table.py` script display a table using the text files in the `Result` directory. If `seq` is passed as the runtime, the table having the results of the sequential solvers will be displayed. On the other hand, if `multi` is passed, the results of the multi-threaded solvers will be showed on standard output. An example of the output is as follows, where only the three tests for `atmosmdd`, `wang3`, and `wang4` were performed.
 
 ```
 m = 5
@@ -49,8 +49,10 @@ wang4      4.77e-01      94  2.71e-01      93  3.31e-01     101
 
 ```shell
 cd (path to this directory)
-python fig_history.py atmosmodd 5 multi
+python hist.py <test name> <m> <seq or multi>
 ```
+
+The following figure is an example when `python hist.py atmosmodd 5 seq` is executed on our computer.
 
 ![atmosmodd_10_multi](atmosmodd_10_multi.png)
 
@@ -58,7 +60,7 @@ python fig_history.py atmosmodd 5 multi
 
 ```shell
 cd (path to this directory)
-python fig_manual.py
+python sub.py 
 ```
 
 

@@ -109,11 +109,9 @@ history, the implicit relative residual norm, the execution time of the
 solution process, the number of iterations, and the explicit relative
 residual norm, in that order. The pair of the execution time and the
 number of iterations corresponds to an entry of the tables in the
-article. Thus, they should be several dozen and a few seconds,
-respectively, if the executables properly work. `run_sub.sh` perform the
-tests using `sub.exe`. The results of the tests are written to a file in
-the `Work/Result/<test name>_sub` directories. All texts contain the
-same items to the ones of the former tests.
+article. If the executables properly work, the execution time should be a few seconds to a few dozen seconds, and the number of iterations should be several dozen.
+
+`run_sub.sh` perform the tests using `sub.exe`. The results of the tests are written to a file in the `Work/Result/<test name>_sub` directories. All texts contain the same items to the ones of the former tests.
 
 ### 3. Drawing graphs
 
