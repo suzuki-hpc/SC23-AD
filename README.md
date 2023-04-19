@@ -1,8 +1,4 @@
-# Computational Artifacts (CA)
-
-Title: An Integer Arithmetic-Based AMG Preconditioned FGMRES Solver
-
-Authors: Kengo Suzuki, Takeshi Fukaya, and Takeshi Iwashita
+# Artifact Description
 
 ## Artifact Identification
 

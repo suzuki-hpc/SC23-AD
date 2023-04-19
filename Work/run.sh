@@ -9,6 +9,7 @@ smoothers=(0 seq 1 multi)
 typeset -A solvers
 solvers=(0 fp64 1 fp32 2 int)
 
+mkdir -p ./Result
 for mat in $matrices; do
     mkdir -p ./Result/$mat
     for s_id in ${(k)smoothers}; do
