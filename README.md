@@ -20,22 +20,13 @@ CPU supporting a C++20 compiler for adequate reproducibility considering
 the use of the bit-shifting operations. The CA supports matrix files
 encoded by the Matrix Market format. All test matrices used in the
 article are available from the SuiteSparse Matrix Collection
-(https://suitesparse-collection-website.herokuapp.com). The CA provides
-the script for downloading them.
+(https://suitesparse-collection-website.herokuapp.com), which can be downloaded with the script in the CA.
+
+The CA includes three directories: [Matrix](Matrix), [Library](Library), and [Work](work). The Matrix directory stores the test matrices, and the Work directory is used for the experiments below. In the Library directory, the kernels of the three solvers are implemented. For more information, please read the [README.md](README.md) file in the Library directory.
 
 ## Reproducibility of Experiments
 
-### Experiment workflow
-
-### About expected results
-
-In step (ii), GNU Make generates two executable files. One performs the main experiments for comparing the three solvers, and the other achieves the additional test for evaluating the effect of the fractional bit length of fixed-point formats on our integer-based solver.
-
-In step (iii), the Zsh scripts run the two executables and write the results in text files in a directory of the same name as the test matrices. For example, the results of the `wang3` test are stored in the files in `Work/Result/wang3`. Each file contains the convergence history, the implicit relative residual norm, the execution time, the number of iterations, and the explicit relative residual norm, in that order. The pair of the execution time and the number of iterations corresponds to an entry of the tables in the article. If the executables and scripts perform correctly, the number of iterations should be several dozen, and the execution time should be a few seconds.
-
-The convergence histories correspond to the graphs in the article. In step (iv), similar figures can be reproduced using the Python scripts in the CA.
-
-## Overview of the workflow for the experiments
+### Overview of the workflow for the experiments
 
 The experiment workflow consists of three steps: installation, execution, and graph drawing. These steps require about 2, 25, and 3 minutes, respectively; the total execution time will be 30 minutes. The overview of the experiment workflow is as shown in the flowchart below.
 
@@ -49,7 +40,7 @@ flowchart
 	D -- Drawing a graph --> G("(iv)" Run `sub.py`);
 ```
 
-## 0. Downloading the CA
+### 0. Downloading the CA
 
 The CA can be downloaded with
 
@@ -59,9 +50,9 @@ git clone https://github.com/suzuki-hpc/SC23-AD.git
 
 or as ZIP manually.
 
-## 1. Installation
+### 1. Installation
 
-### Downloading matrices
+#### Downloading matrices
 
 The CA does not contain any of the test matrices due to the file size. Thus, they must be downloaded from [the SuiteSparse Collection Matrix](https://suitesparse-collection-website.herokuapp.com) and put into the [Matrix](Matrix) directory. We provide a Zsh script for downloading all matrices in the directory. You can use it if necessary.
 
@@ -70,7 +61,7 @@ cd <path to the CA>/Matrix
 zsh download.sh
 ```
 
-### Making executables
+#### Making executables
 
 We employ GNU Make to compile our C++ source code, which is performed as follows:
 
@@ -88,7 +79,7 @@ bit length of fixed-point formats on our int-AMG-FMGRES($m$) solver.
 
 For more information, see the README file in the [Work](Work) directory.
 
-## 2. Execution
+### 2. Execution
 
 Next, all tests performed using the executables. The executables can be
 individually executed as follows:
@@ -124,7 +115,7 @@ tests using `sub.exe`. The results of the tests are written to a file in
 the `Work/Result/<test name>_sub` directories. All texts contain the
 same items to the ones of the former tests.
 
-## 3. Drawing graphs
+### 3. Drawing graphs
 
 Finally, the tables and graphs in the article are reproduced by the
 Python scripts as follows:
