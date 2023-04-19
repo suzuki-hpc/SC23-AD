@@ -25,12 +25,12 @@ enum class E_Smoother {
 #define AMG_THETA 0.8
 
 int main(int argc, char **argv) {
-    if(argc != 4) return 1;
+    if(argc != 5) return 1;
     /**
      * Reading a matrix of the Matrix Market format and
      * Storing the read matrix in the CSR format.
      **/
-    std::string path = "../matrix/";
+    std::string path = "../Matrix/";
     path += (argv[1]);
     const char *filename = path.c_str();
     CSRMat *Abase = io::ReadMM(filename, true, false);
@@ -86,23 +86,23 @@ int main(int argc, char **argv) {
     double *r = senk::utils::SafeMalloc<double>(N);
 
     // Constructing the solver and solving the problem.
-    for(int8_t bit = 20; bit <= 30; bit++) {
-        auto i_inner = new FGMRESflex(iA, m, epsilon, iM, bit);
-        auto i_solver = new Restarted(dA, i_inner, outer, epsilon);
-        utils::Set<double>(0, x, N);
-        timer->Restart();
-        auto i_converge = i_solver->Solve(b, nrm_b, x);
-        timer->Elapsed();
-        printf("[Iter] : %d\n", i_converge.iter);
-        // Checking the explicit relative residual norm.
-        dA->SpMV(x, r);
-        senk::blas1::Axpby<double>(1, b, -1, r, N);
-        double nrm_r = senk::blas1::Nrm2<double>(r, N);
-        printf("# [Res] : %e\n", nrm_r/nrm_b);
-        delete i_inner;
-        delete i_solver;
-        printf("\n");
-    }
+    int8_t bit = atoi(argv[4]);
+
+    auto i_inner = new FGMRESflex(iA, m, epsilon, iM, bit);
+    auto i_solver = new Restarted(dA, i_inner, outer, epsilon);
+    utils::Set<double>(0, x, N);
+    timer->Restart();
+    auto i_converge = i_solver->Solve(b, nrm_b, x);
+    timer->Elapsed();
+    printf("[Iter] : %d\n", i_converge.iter);
+    // Checking the explicit relative residual norm.
+    dA->SpMV(x, r);
+    senk::blas1::Axpby<double>(1, b, -1, r, N);
+    double nrm_r = senk::blas1::Nrm2<double>(r, N);
+    printf("# [Res] : %e\n", nrm_r/nrm_b);
+    delete i_inner;
+    delete i_solver;
+    printf("\n");
 
     return 0;
 }

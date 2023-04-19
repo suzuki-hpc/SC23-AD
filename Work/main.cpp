@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
      * Reading a matrix of the Matrix Market format and
      * Storing the read matrix in the CSR format.
      **/
-    std::string path = "../matrix/";
+    std::string path = "../Matrix/";
     path += (argv[1]);
     const char *filename = path.c_str();
     CSRMat *Abase = io::ReadMM(filename, true, false);

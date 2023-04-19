@@ -1,29 +1,34 @@
-KEY := gnu # gnu or intel
+KEY := intel # gnu or intel
 OMP := openmp
 NOOMP := no-openmp
 ifeq ($(KEY), intel)
 CC      := icpx
-CFLAGs  := -fast -std=c++20 -q$(OMP) -Wall -Wopenmp
-else
-CC      := g++
-CFLAGs  := -Ofast -std=c++20 -f$(OMP) -Wall
+CFLAGs  := -fast -std=c++20 -q$(OMP)
+NOCFLAGs:= -fast -std=c++20 -q$(NOOMP)
+else 
+CC      := g++-12
+CFLAGs  := -Ofast -std=c++20 -f$(OMP)
+NOCFLAGs:= -Ofast -std=c++20 -f$(NOOMP)
 endif
-EXEC1    := main_seq.out
-EXEC2    := main_multi.out
-EXEC3    := sub.out
+EXEC1    := seq.exe
+EXEC2    := multi.exe
+EXEC3    := sub.exe
 MYLIBDIR := ../Library
 INCDIR  := $(MYLIBDIR)
 INCS    := $(wildcard $(INCDIR)/*.hpp) $(wildcard $(INCDIR)/**/*.hpp) $(wildcard $(INCDIR)/**/**/*.hpp)
 
-all: $(EXEC1) $(EXEC2)
+all: $(EXEC1) $(EXEC2) $(EXEC3)
 
 $(EXEC1): main.cpp $(INCS)
+	$(CC) $(NOCFLAGs) -I $(INCDIR) $< -o $@
+
+$(EXEC2): main.cpp $(INCS)
 	$(CC) $(CFLAGs) -I $(INCDIR) $< -o $@
 
-$(EXEC2): main_manual.cpp $(INCS)
-	$(CC) $(CFLAGs) -I $(INCDIR) $< -o $@
+$(EXEC3): sub.cpp $(INCS)
+	$(CC) $(NOCFLAGs) -I $(INCDIR) $< -o $@
 
 .PHONY: clean test
 clean:
-	rm -f ./$(EXEC1) ./$(EXEC2)
+	rm -f ./$(EXEC1) ./$(EXEC2) ./$(EXEC3)
 

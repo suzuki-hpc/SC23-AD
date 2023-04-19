@@ -5,23 +5,20 @@ import matplotlib.pyplot as plt
 import re
 
 def reader(path):
-    iters = []
+    itr = None
     res_appared = False
     with open(path) as f:
         for line in f:
             li = line.split()
             if len(li) == 0:
-                continue
+                break
             if li[0] == "[Iter]":
-                if res_appared:
-                    iters.append(int(li[2]))
-                else:
-                    iters.append(None)
-                res_appared = False
+                itr = int(li[2])
             if li[0] == "[Res]":
-                if float(li[2]) != 0:
-                    res_appared = True
-    return iters
+                res_appared = True
+    if not res_appared:
+        itr = None
+    return itr
 
 def display(x, ylist, labels):
     plt.rcParams.update({
@@ -56,16 +53,20 @@ if __name__ == '__main__':
     matrices = []
     for f in os.listdir(path):
         if os.path.isdir(os.path.join(path, f)):
-            if "_manual" in f:
-                name = f.replace("_manual", "")
+            if "_sub" in f:
+                name = f.replace("_sub", "")
                 matrices.append(name)
+
+    x = [i for i in range(20, 31)]
 
     li_iters = []
     for matrix in matrices:
-        iters = reader(path+matrix+"_manual"+"/"+matrix+"_int_seq_20.txt")
+        iters = []
+        for i in range(20, 31):
+            itr = reader(path+matrix+"_sub"+"/"+matrix+"_int_seq_20_"+str(i)+".txt")
+            iters.append(itr)
+        print(iters)
         li_iters.append(iters)
-
-    x = [i for i in range(20, 31)]
 
     display(x, li_iters, matrices);
 
