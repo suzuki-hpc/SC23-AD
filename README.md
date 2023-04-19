@@ -35,9 +35,9 @@ flowchart
 	A(0. Downloading the CA) --> B(1. Downloading test matrices\n and making three executables);
 	B -- Main test --> C(2. Run `run.sh`);
 	B -- Additional test --> D(2. Run `run_sub.sh`);
-	C -- Display tables --> E("(iv)" Run `table.py`);
-	C -- Drawing graphs --> F("(iv)" Run `history.py`);
-	D -- Drawing a graph --> G("(iv)" Run `sub.py`);
+	C -- Display tables --> E(3. Run `table.py`);
+	C -- Drawing graphs --> F(3. Run `history.py`);
+	D -- Drawing a graph --> G(3. Run `sub.py`);
 ```
 
 ### 0. Downloading the CA
