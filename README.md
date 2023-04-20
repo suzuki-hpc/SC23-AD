@@ -42,13 +42,11 @@ flowchart
 
 ### 0. Downloading the CA
 
-The CA can be downloaded with
+The CA can be downloaded with the following command or manually as a ZIP file:
 
 ```shell
 git clone https://github.com/suzuki-hpc/SC23-AD.git
 ```
-
-or as ZIP manually.
 
 ### 1. Installation
 
@@ -70,10 +68,10 @@ cd <path to the CA>/Work
 make -f Makefile
 ```
 
-Note that `Makefile` assumes the use of Intel OneAPI or GCC. If
-necessary, the compiler and the options should be modified. If the
-compilation is successful, three executables, `seq.exe`, `multi.exe`,
-and `sub.exe`, are created. The first two compare the performance of the
+Note that `Makefile` assumes the use of Intel OneAPI or GCC; the
+compiler and the options should be changed if necessary. If the
+compilation is successful, it creates three executables, `seq.exe`,
+`multi.exe`, and `sub.exe`. The first two compare the performance of the
 three solvers, while the latter evaluates the effect of the fractional
 bit length of fixed-point formats on our int-AMG-FMGRES($m$) solver.
 
@@ -91,29 +89,33 @@ individually executed as follows:
 ```
 
 `<solver>` is set to 0, 1, or 2 and specifies the solver used. The
-numbers indicates FP64, mixed-precision, and integer-based solvers,
+numbers indicate FP64, mixed-precision, and integer-based solvers,
 respectively. `<m>` is the restart period, and `<bit>` is the manually
-assigned fractional bit length. For simplicity, the CA provides two Zsh
-scripts perform all test cases in the article:
+set fractional bit length. For simplicity, the CA provides two Zsh
+scripts that perform all the tests at once:
 
 ```shell
 zsh run.sh
 zsh run_sub.sh
 ```
 
-`run.sh` performs all tests using `seq.exe` and `multi.exe`. If these
-tests are performed successfully, text files having the results are
-generated in the `Work/Result/<test name>` directories with the name
-including the used parameters. Each file contains the convergence
-history, the implicit relative residual norm, the execution time of the
-solution process, the number of iterations, and the explicit relative
-residual norm, in that order. The pair of the execution time and the
-number of iterations corresponds to an entry of the tables in the
-article. If the executables properly work, the execution time should be a few seconds to a few dozen seconds, and the number of iterations should be several dozen.
+`run.sh` performs all tests using `seq.exe` and `multi.exe`. If the two
+scripts successfully run, the test results are saved in the
+`Work/Result/<test name>` directory, with a name that includes the
+parameters used. Each resulting file contains the convergence history,
+the implicit relative residual norm, the execution time of the solution
+process, the number of iterations, and the explicit relative residual
+norm, in that order. The pair of the execution time and the number of
+iterations corresponds to an entry of the tables in the article. If the
+executables properly work, the execution time should be a few seconds to
+a few dozen seconds, and the number of iterations should be several
+dozen.
 
-`run_sub.sh` perform the tests using `sub.exe`. The results of the tests are written to a file in the `Work/Result/<test name>_sub` directories. All texts contain the same items to the ones of the former tests.
+`run_sub.sh` perform the tests using `sub.exe`. The results of
+these tests are saved in the `Work/Result/<test name>_sub` directories.
+All results contain the same items as the results above.
 
-### 3. Drawing graphs
+### 3. Visualization
 
 Finally, the tables and graphs in the article are reproduced by the
 Python scripts as follows:
@@ -126,14 +128,15 @@ python3 hist.py <test name> <m> <type>
 python3 sub.py
 ```
 
-These Python scripts depends on `Matplotlib` and `python-tabulate`,
-which are installed with the second command from the top. `tabel.py`
-displays similar tables to the ones in the article. `<type>` specify
-whether the solvers implemented sequentially or multi-threaded and must
-be `seq` or `multi`. `history.py` generates graphs of the convergence
-history. `<m>` denotes the restart period and must be 5, 10, or 20.
-`<type>` is set to `seq` or `multi`. `sub.py` creates a graph evaluating
-the effect of the fractional bit length.
+These Python scripts depend on `Matplotlib` and `python-tabulate`, which
+are installed with the second command from the top. The `tabel.py`
+script displays similar tables to the ones in the article; `<type>`
+specify whether the solvers are implemented sequentially or
+multi-threaded and must be `seq` or `multi`. The `history.py` script
+generates graphs of the convergence history; `<m>` denotes the restart
+period and must be 5, 10, or 20; `<type>` is set to `seq` or `multi`.
+The `sub.py` script creates a graph evaluating the effect of the
+fractional bit length.
 
 The three steps will take about 2, 25, or 3 minutes, respectively; the
 total execution time will be about 30 minutes. For more information,
