@@ -99,7 +99,7 @@ zsh run.sh
 zsh run_sub.sh
 ```
 
-`run.sh` performs all tests using `seq.exe` and `multi.exe`. If the two
+`run.sh` performs all the tests that use `seq.exe` and `multi.exe`. If the two
 scripts successfully run, the test results are saved in the
 `Work/Result/<test name>` directory, with a name that includes the
 parameters used. Each resulting file contains the convergence history,
@@ -111,7 +111,7 @@ executables properly work, the execution time should be a few seconds to
 a few dozen seconds, and the number of iterations should be several
 dozen.
 
-`run_sub.sh` performs the tests using `sub.exe`. The results of
+`run_sub.sh` performs the other tests using `sub.exe`. The results of
 these tests are saved in the `Work/Result/<test name>_sub` directories.
 All results contain the same items as the results above.
 
