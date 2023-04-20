@@ -1,12 +1,12 @@
-KEY := intel # gnu or intel
+KEY := intel# gnu or intel
 OMP := openmp
 NOOMP := no-openmp
-ifeq ($(KEY), intel)
+ifeq ($(KEY),intel)
 CC      := icpx
 CFLAGs  := -fast -std=c++20 -q$(OMP)
 NOCFLAGs:= -fast -std=c++20 -q$(NOOMP)
 else 
-CC      := g++-12
+CC      := g++
 CFLAGs  := -Ofast -std=c++20 -f$(OMP)
 NOCFLAGs:= -Ofast -std=c++20 -f$(NOOMP)
 endif
