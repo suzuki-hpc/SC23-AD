@@ -33,7 +33,7 @@ if __name__ == '__main__':
     matrices = []
     for f in os.listdir(path):
         if os.path.isdir(os.path.join(path, f)):
-            if "_manual" not in f:
+            if "_sub" not in f:
                 matrices.append(f)
 
     for m in [5, 10, 20]:

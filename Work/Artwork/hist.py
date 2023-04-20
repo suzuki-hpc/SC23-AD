@@ -8,7 +8,7 @@ def reader(path):
     is_converged = True
     with open(path) as f:
         for line in f:
-            if re.search(r'# \[\d\]', line):
+            if re.search(r'# \[\d+\]', line):
                 hist.append(float(line.split()[2]))
             elif line.split()[0] == "[Iter]" and line.split()[2] == "0":
                 is_converged = False 

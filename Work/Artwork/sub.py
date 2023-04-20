@@ -65,7 +65,6 @@ if __name__ == '__main__':
         for i in range(20, 31):
             itr = reader(path+matrix+"_sub"+"/"+matrix+"_int_seq_20_"+str(i)+".txt")
             iters.append(itr)
-        print(iters)
         li_iters.append(iters)
 
     display(x, li_iters, matrices);

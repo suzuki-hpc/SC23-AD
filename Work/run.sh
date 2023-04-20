@@ -18,6 +18,8 @@ for mat in $matrices; do
     done
 done
 
+export OMP_NUM_THREADS=40
+
 for mat in $matrices; do
     mkdir -p ./Result/$mat
     for id in ${(k)solvers}; do
