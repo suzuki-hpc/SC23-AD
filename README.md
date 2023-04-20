@@ -111,7 +111,7 @@ executables properly work, the execution time should be a few seconds to
 a few dozen seconds, and the number of iterations should be several
 dozen.
 
-`run_sub.sh` perform the tests using `sub.exe`. The results of
+`run_sub.sh` performs the tests using `sub.exe`. The results of
 these tests are saved in the `Work/Result/<test name>_sub` directories.
 All results contain the same items as the results above.
 
