@@ -36,7 +36,7 @@ flowchart
 	B -- Main test --> C(2. Run `run.sh`);
 	B -- Additional test --> D(2. Run `run_sub.sh`);
 	C -- Display tables --> E(3. Run `table.py`);
-	C -- Drawing graphs --> F(3. Run `history.py`);
+	C -- Drawing graphs --> F(3. Run `hist.py`);
 	D -- Drawing a graph --> G(3. Run `sub.py`);
 ```
 
