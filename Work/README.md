@@ -9,36 +9,37 @@ cd <path to the CA>/Work
 make -f Makefile
 ```
 
-The `Makefile` assumes Intel OneAPI or GCC. If necessary, the compiler and the options should be changed.
-
-```makefile
-CC     := icpx
-CFLAGs := -fast -std=c++20 -qopenmp
-```
-
-
+The `Makefile` assumes Intel OneAPI or GCC. If necessary, the compiler and the options should be changed. `CC` and `CFLAGs` correspond to the computer and the options, respectively. 
 
 If all the compilations is successful, three executables are created in the `<path to the CA>/Work` directory: `seq.exe`, `multi.exe`, and `sub.exe`.
 
 ## Running executables
 
-We provide all test cases in two Zsh scripts: `run.sh` and `run_manual.sh`. Only running these scripts you can obtain the numerical results in the `Result` directory.
+We provide all test cases in two Zsh scripts: `run.sh` and `run_sub.sh`. Only running these scripts, all the tests can be performed:
 
 ```shell
 zsh run.sh
-zsh run_manual.sh
+zsh run_sub.sh
 ```
 
-For each test problems, two directories is generated: `Result/(name)` and `Result/(name)_manual`. The former contains the results of the tests using `run.sh` and the latter stores the results of the tests using `run_manual.sh`.
+After running all the test properly, two subdirectories, `Result/<test name>` and `Result/<test name>_sub`, are  created, which save the test results as text files. The former contains the results of the tests that uses `run.sh` and the latter stores the results of  `run_sub.sh`.
 
-Each text file is named according to the following rule.
+The text files in `Result/<test name>` are named according to the following rule.
 
 ```
-(name)_(fp64 or fp32 or int)_(seq or multi)_(5 or 10 or 20).txt
+<test name>_<fp64 or fp32 or int>_<seq or multi>_<5 or 10 or 20>.txt
 ```
 
-`fp64`, `fp32`, and `int` identify the used solver, and `seq` and `multi` specify whether the solve is implemented sequentially or multi-threaded. `5`, `10`, and `20` indicate the restart period of the solver.
+Here, `fp64`, `fp32`, and `int` identify the used solver, and `seq` and `multi` specify whether the solve is implemented sequentially or multi-threaded. `5`, `10`, and `20` indicate the restart period of the solver.
+
+The files in `Result/<test name>_sub` are name similarly as follows:
+
+```
+<test name>_int_seq_20_<bits>.txt
+```
+
+Because the tests of `run_sub.sh` evaluate the effect of the fractional bit length on the sequential integer-based solver with restart cycle of 20, the names include `int`, `seq`, and `20`. `bits` indicates the assigned fractional bit length in that test.
 
 ## Drawing tables and figures
 
-Using the Python scripts, you can produce similar tables and figures to the ones in the articles. The running instructions are written in the README file in the [Artwork](Artwork) directory.
+In the [Artwork](Artwork) directory, the Python scripts reproduce similar tables and figures to the ones in the articles. The running instructions are written in the README file in the Artwork directory.
