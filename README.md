@@ -33,8 +33,8 @@ The experiment workflow consists of three steps: installation, execution, and gr
 ```mermaid
 flowchart
 	A(0. Downloading the CA) --> B(1. Downloading test matrices\n and making three executables);
-	B -- Main test --> C(2. Run `run.sh`);
-	B -- Additional test --> D(2. Run `run_sub.sh`);
+	B -- Main tests --> C(2. Run `run.sh`);
+	B -- Additional tests --> D(2. Run `run_sub.sh`);
 	C -- Display tables --> E(3. Run `table.py`);
 	C -- Drawing graphs --> F(3. Run `hist.py`);
 	D -- Drawing a graph --> G(3. Run `sub.py`);
@@ -68,11 +68,7 @@ cd <path to the CA>/Work
 make -f Makefile
 ```
 
-Note that `Makefile` assumes the use of Intel OneAPI or GCC; the
-compiler and the options should be changed if necessary. If the
-compilation is successful, it creates three executables, `seq.exe`,
-`multi.exe`, and `sub.exe`. The first two compare the performance of the
-three solvers, while the latter evaluates the effect of the fractional
+Note that `Makefile` assumes Intel OneAPI or GCC; the compiler and the options should be changed if necessary. If the compilation is successful, it creates three executables, `seq.exe`, `multi.exe`, and `sub.exe`. The first two compare the performance of the three solvers, while the latter evaluates the effect of the fractional
 bit length of fixed-point formats on our int-AMG-FMGRES($m$) solver.
 
 For more information, see the README file in the [Work](Work) directory.
@@ -88,11 +84,7 @@ individually executed as follows:
 ./sub.exe <test name> 0 <m> <bit>
 ```
 
-`<solver>` is set to 0, 1, or 2 and specifies the solver used. The
-numbers indicate FP64, mixed-precision, and integer-based solvers,
-respectively. `<m>` is the restart period, and `<bit>` is the manually
-set fractional bit length. For simplicity, the CA provides two Zsh
-scripts that perform all the tests at once:
+`<solver>` is set to 0, 1, or 2 and specifies the solver used. The numbers indicate FP64, mixed-precision, and integer-based solvers, respectively. `<m>` is the restart period, and `<bit>` is the manually set fractional bit length. For simplicity, the CA provides two Zsh scripts that perform all the tests at once:
 
 ```shell
 zsh run.sh
@@ -100,25 +92,14 @@ zsh run_sub.sh
 ```
 
 `run.sh` performs all the tests that use `seq.exe` and `multi.exe`. If the two
-scripts successfully run, the test results are saved in the
-`Work/Result/<test name>` directory, with a name that includes the
-parameters used. Each resulting file contains the convergence history,
-the implicit relative residual norm, the execution time of the solution
-process, the number of iterations, and the explicit relative residual
-norm, in that order. The pair of the execution time and the number of
-iterations corresponds to an entry of the tables in the article. If the
-executables properly work, the execution time should be a few seconds to
-a few dozen seconds, and the number of iterations should be several
-dozen.
+scripts successfully run, the test results are saved in the `Work/Result/<test name>` directory, with a name that includes the parameters used. Each resulting file contains the convergence history, the implicit relative residual norm, the execution time of the solution process, the number of iterations, and the explicit relative residual
+norm, in that order. The pair of the execution time and the number of iterations corresponds to an entry of the tables in the article. If the executables properly work, the execution time should be a few seconds to a few dozen seconds, and the number of iterations should be several dozen.
 
-`run_sub.sh` performs the other tests using `sub.exe`. The results of
-these tests are saved in the `Work/Result/<test name>_sub` directories.
-All results contain the same items as the results above.
+`run_sub.sh` performs the other tests using `sub.exe`. The results of these tests are saved in the `Work/Result/<test name>_sub` directories. All results contain the same items as the results above.
 
 ### 3. Visualization
 
-Finally, the tables and graphs in the article are reproduced by the
-Python scripts as follows:
+Finally, the tables and graphs in the article are reproduced by the Python scripts as follows:
 
 ```shell
 cd <path to the CA>/Work/Artwork
@@ -129,15 +110,7 @@ python3 sub.py
 ```
 
 These Python scripts depend on `Matplotlib` and `python-tabulate`, which
-are installed with the second command from the top. The `tabel.py`
-script displays similar tables to the ones in the article; `<type>`
-specify whether the solvers are implemented sequentially or
-multi-threaded and must be `seq` or `multi`. The `history.py` script
-generates graphs of the convergence history; `<m>` denotes the restart
-period and must be 5, 10, or 20; `<type>` is set to `seq` or `multi`.
-The `sub.py` script creates a graph evaluating the effect of the
+are installed with the second command from the top. The `tabel.py` script displays similar tables to the ones in the article; `<type>` specify whether the solvers are implemented sequentially or multi-threaded and must be `seq` or `multi`. The `history.py` script generates graphs of the convergence history; `<m>` denotes the restart period and must be 5, 10, or 20; `<type>` is set to `seq` or `multi`. The `sub.py` script creates a graph evaluating the effect of the
 fractional bit length.
 
-The three steps will take about 2, 25, or 3 minutes, respectively; the
-total execution time will be about 30 minutes. For more information,
-please visit the GitHub page.
+The three steps will take about 2, 25, or 3 minutes, respectively; the total execution time will be about 30 minutes. For more information, please visit the GitHub page.
