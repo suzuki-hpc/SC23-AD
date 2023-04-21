@@ -1,21 +1,25 @@
 # Creating artworks
 
-## Setting-up
+## Initial Setting
 
-In this CA, all tables and figures similar to the ones in the articles are created by three python scripts: `table.py`, `hist.py`, and  `sub.py`. These scripts depend on external libraries, and thus those must be installed first. Since, we have compiled all the necessary library information in `requirements.txt`, you can install them with the following command.
+The CA provides three python scripts for producing similar tables and figures to the ones in the article: `table.py`, `hist.py`, and  `sub.py`. These scripts depend on some external libraries; those must be installed first. Since we have compiled all the necessary library information in `requirements.txt`, you can install them with the following command.
 
 ```shell
 pip install -r requirements.txt
 ```
 
-## Drawing the tables
+## Creating tables
+
+The `table.py` script display tables using the text results in the `Result` directory:
 
 ```shell
 cd <path to the CA>/Work/Artwork
 python table.py <seq or multi>
 ```
 
-The `table.py` script display a table using the text files in the `Result` directory. If `seq` is passed as the runtime, the table having the results of the sequential solvers will be displayed. On the other hand, if `multi` is passed, the results of the multi-threaded solvers will be showed on standard output. An example of the output is as follows, where only the three tests for `atmosmdd`, `wang3`, and `wang4` were performed.
+If `seq` is passed to the runtime argument, the test results for the sequential solvers will be shown on standard output. On the other hand, if `multi` is passed, the results of the multi-threaded solvers will be tabulated. 
+
+An example output is shown below. In this example, the results of the three tests, `atmosmdd`, `wang3`, and `wang4`, were displayed.
 
 ```
 m = 5
@@ -43,23 +47,23 @@ wang3      8.37e-02      18  8.46e-02      32  9.60e-02      32
 wang4      4.77e-01      94  2.71e-01      93  3.31e-01     101
 ```
 
-## Drawing the figures
+## Drawing figures
 
 ### Convergence history
 
+The `hist.py` script creates figures of convergence history depending on `Matplotlib`. The script can be used as follow:
+
 ```shell
-cd (path to this directory)
+cd <path to the CA>/Work/Artwork
 python hist.py <test name> <m> <seq or multi>
 ```
 
-The following figure is an example when `python hist.py atmosmodd 5 seq` is executed on our computer.
+### Comparison of different fractional bit lengths
 
-![atmosmodd_10_multi](atmosmodd_10_multi.png)
-
-### Comparison between different fractional bit lengths
+The figure for evaluating the effect of the fractional bit length is reproduced by the following command:
 
 ```shell
-cd (path to this directory)
+cd <path to the CA>/Work/Artwork
 python sub.py 
 ```
 
